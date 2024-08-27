@@ -14,7 +14,7 @@ def home():
     Home page that contain 1st 3 posts and a brief introduction.    
     '''
     visits = view_counter('/')
-    home_posts = [get_post('wiki-template-guide'),get_post('wiki-template-guide'),get_post('wiki-template-guide') ] #Shows featured posts. Must be defined manually. If wrong, internal error occurs
+    home_posts = [get_post('wiki-template-guide'),get_post('wiki-template-guide'),get_post('') ] #Shows featured posts. Must be defined manually. If wrong, internal error occurs
     return render_template('home.html', home_posts=home_posts, visits=visits)
 
 @app.route('/links')

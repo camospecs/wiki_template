@@ -1,0 +1,28 @@
+
+
+<!--Deactived in main branch-->
+
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Create a New Post {% endblock %}</h1>
+<form action="{{ url_for('create_post') }}" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" class="form-control" placeholder="Enter the title">
+    </div>
+    <div class="form-group">
+        <label for="brief">Brief</label>
+        <input type="text" name="brief" class="form-control" placeholder="Enter a brief description">
+    </div>
+    <div class="form-group">
+        <label for="picture">Header Image</label>
+        <input type="file" name="picture" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" class="form-control" rows="5" placeholder="Enter your content here"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

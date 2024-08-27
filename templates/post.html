@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--Code highlighter-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+
+
+<style>
+
+img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+.template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.image-container {
+            width: 100%; /* Width relative to the viewport */
+            max-width: 600px; /* Optional: Limit the maximum width */
+            height: auto; /* Adjust height automatically */
+            margin: 0 auto; /* Center the image */
+        }
+
+.page_info {
+    display: inline-flex;
+    color: gray;
+}
+
+.html-content{
+
+    text-align: left;
+    padding: 30px 0 0 20px;
+
+}
+
+li {
+    padding: 30px 0 0 20px;
+}
+</style>
+
+<main role="main" class="container">
+
+    <div class="template">
+      <h1>{{post['title']}}</h1>
+
+        <div class="page_info">
+            <p>Posted: {{post['created']}}&nbsp;&nbsp;</p>
+            <p>Views: {{visits or  '--'}}</p>
+        </div>
+
+        <p class="lead" style="padding-bottom: 20px;">{{post['brief']}}</p>
+
+        <div class="image-container">  
+            <img src="{{post['img_path']}}"/>
+        </div>
+
+        <div class="html-content">
+
+            {{html}}
+
+        </div>
+    </div>
+
+
+</main>
+
+{% endblock %}

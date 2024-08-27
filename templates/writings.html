@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% import 'base.html' as macros %}
+
+{%block content%}
+
+
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            {% for post in posts %}
+            <div class="col-12 col-sm-6 col-md-4 justify-content-center mb-4">
+                <div class="card mx-auto" style="width: 18rem;">
+                    <img class="card-img-top" src="{{post['img_path']}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"> {{ post['title'] }} </h5>
+                        <p class="card-text">{{ post['brief'] }}</p>
+                        <a href="/{{post['post_name']}}" class="btn btn-primary">Visit post</a>
+                    </div>
+                </div>
+            </div>
+
+            {%endfor%}
+
+{%endblock%}
+
+

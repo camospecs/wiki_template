@@ -1,0 +1,116 @@
+{%extends 'base.html' %}
+
+{%block content%}
+
+<style>
+    .bg-1{
+        background-color: #F0FFFF;
+    }
+</style>
+
+<script>
+
+//Typewriter functionality from css-tricks.com
+var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 200;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+
+</script>
+
+
+<div class="container" style="text-align: center;">
+    <img src="{{ url_for('static', filename='images/wiki_logo.jpg') }}" class="rounded mx-auto d-block img-fluid rounded-circle mt-4 mb-2" style="max-width:40%; height: auto;" alt="avatar">
+
+    <!--Typewriter from css-tricks.com-->
+    <h1 style="color: royalblue; font-weight: bold;">
+        <a class="typewrite" data-period="2000" data-type='[ "Welcome to the Wiki!","There have been {{visits}} visits to this page!" ]'>
+        <span class="wrap"></span>
+        </a>
+    </h1>
+    <!--End of typewriter from css-tricks.com-->
+  
+</div>
+
+<div class="container-fluid bg-1 text-center pt-5 pb-5"> <h3>Welcome to Our Student Wiki!</h3> <p>Hi everyone! This wiki is a collaborative space created just for you. Whether you're here to share knowledge or to find useful information, you've come to the right place. Our goal is to build a comprehensive resource where students can easily access guides, tips, and links to helpful materials. This is a community-driven project, so your contributions are not only welcome but essential!</p>
+
+    <h3>Explore and Learn</h3>
+<p>Within this wiki, you'll find a wealth of resources on various topics. From study guides and tips to links to useful websites and tools, everything you need to succeed is at your fingertips. The information here is organized and easy to navigate, so you can quickly find what you're looking for.</p>
+
+<h3>Why Use This Wiki?</h3>
+<p>This wiki is designed to be a one-stop hub for all the information you need during your studies. It's a place where you can discover new resources, reinforce your understanding of complex topics, and find guidance on a wide range of subjects. Take your time exploring, and make the most of the knowledge shared here!</p>
+
+</div>
+
+<!--3 cards that will eventually show most recent writings-->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        {% for post in home_posts %}
+        <div class="col-12 col-sm-6 col-md-4 justify-content-center mb-4">
+            <div class="card mx-auto" style="width: 18rem;">
+                <img class="card-img-top" src="{{post['img_path']}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"> {{ post['title'] }} </h5>
+                    <p class="card-text">{{ post['brief'] }}</p>
+                    <a href="/{{post['post_name']}}" class="btn btn-primary">Visit post</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+{%endblock%}>
